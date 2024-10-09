@@ -66,3 +66,9 @@ COPY devel.bashrc /root/.bashrc
 # Don't use the bazel cache when a new docker image is created.
 RUN echo build --action_env=DOCKER_CACHEBUSTER=$(date +%s%N)$RANDOM >> /etc/bazel.bazelrc
 RUN echo build --host_action_env=DOCKER_HOST_CACHEBUSTER=$(date +%s%N)$RANDOM >> /etc/bazel.bazelrc
+
+RUN git clone --depth 1 --branch v2.14.0 https://github.com/tensorflow/tensorflow.git
+WORKDIR tensorflow
+
+COPY ./.tf_configure.bazelrc ./.tf_configure.bazelrc
+# RUN TF_PYTHON_VERSION=3.9 bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package

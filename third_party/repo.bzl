@@ -20,7 +20,7 @@ def tf_mirror_urls(url):
     Given a URL, it returns a list of the TF-mirror cache version of that URL
     and the original URL, suitable for use in `urls` field of `tf_http_archive`.
     """
-    if not url.startswith("https://"):
+    if not url.startswith("https://") or True:  # Mirror is down by now
         return [url]
     return [
         "https://storage.googleapis.com/mirror.tensorflow.org/%s" % url[8:],
